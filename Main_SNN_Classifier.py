@@ -173,7 +173,6 @@ for i in range (0,63):
 
 lif_to_lif_output_proj = p.Projection(ssa, lif_output, p.FromListConnector(weighted_connections), target="excitatory")
 
-#print weighted_connections
 
 """ SECOND LAYER"""
 second_lif_layer = p.Population(8, p.IF_curr_exp, cell_params_output, label='second_lif_layer')
@@ -198,11 +197,8 @@ p.run(endTime*2)
 
 spikes_output_def = lif_output.getSpikes()
 spikes_output_def_2nd = second_lif_layer.getSpikes()
-#spikes_lif = lif.getSpikes()
 weights = lif_to_lif_output_proj.getWeights()
 
-
-#print weights
 
 neuronFirings = [0 for i in range(8)]
 neuronTotal = 0
@@ -247,22 +243,6 @@ for x in spikes_output_def_2nd:
     elif x[0] == 7:
         neuronFirings_2nd[7] += 1		
 
-
-def saveWeights2ndLayer(path):
-	with open(path, 'ab') as csvfile:
-		spamwriter = csv.writer(csvfile, delimiter=',')
-		spamwriter.writerow("---------DIV---------")
-		for i in range(len(neuronFirings)):
-			spamwriter.writerow([sys.argv[1], neuronFirings[i]])
-def saveWeights3rdLayer(path):
-	with open(path, 'ab') as csvfile:
-		spamwriter = csv.writer(csvfile, delimiter=',')
-		spamwriter.writerow("---------DIV---------")
-		for i in range(len(neuronFirings_2nd)):
-			spamwriter.writerow([sys.argv[1], neuronFirings_2nd[i]])			
-
-#saveWeights2ndLayer("firingOutput2ndLayer.csv")
-#saveWeights3rdLayer("firingOutput3rdLayer.csv")
 print "\n\nSPIKES FIRED FOR EACH OUTPUT NEURON - LAYER 1. FILE No. "+ str(sys.argv[1])
 print "Neuron0:", neuronFirings[0]
 print "Neuron1:", neuronFirings[1]
@@ -283,23 +263,4 @@ print "Neuron4:", neuronFirings_2nd[4]
 print "Neuron5:", neuronFirings_2nd[5]
 print "Neuron6:", neuronFirings_2nd[6]
 print "Neuron7:", neuronFirings_2nd[7]
-print "NeuronTotal", neuronTotal_2nd
-
-#print weighted_connections_2ndLayer
-
-def saveHit(path):
-	max = 0
-	rep = 0
-	for i in range(len(neuronFirings_2nd)):
-		if max < neuronFirings_2nd[i]:
-			max = neuronFirings_2nd[i]
-			rep = 0
-		elif max == neuronFirings_2nd[i]:
-			rep += 1
-	with open(path, 'ab') as csvfile:
-		spamwriter = csv.writer(csvfile, delimiter=',')
-		if neuronFirings_2nd[int(sys.argv[1])] == max and rep == 0:
-			spamwriter.writerow([int(sys.argv[1]), 1])
-		else:
-			spamwriter.writerow([int(sys.argv[1]), 0])
-saveHit("hits.csv")			
+print "NeuronTotal", neuronTotal_2nd			
