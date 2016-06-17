@@ -11,6 +11,7 @@ In this code a 3-layer (input, hidden and output) Spiking Neural Network has bee
 **Keywords**: SpiNNaker; spiking neural network; audio samples classification; spikes; neuromorphic auditory sensor
 
 **Author**: Juan Pedro Dominguez-Morales
+
 **Contact**: jpdominguez@atc.us.es
 
 Copyright © 2016 Juan P. Dominguez-Morales
