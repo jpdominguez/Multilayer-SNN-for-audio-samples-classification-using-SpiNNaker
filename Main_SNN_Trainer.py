@@ -28,12 +28,12 @@ import os
 import sys
 import csv
 
-# If pyNAVIS was not installed from pip, use the following line:
-#sys.path.insert(1, 'D:\\Proyectos\\Universidad\\GitHub\\Juanpe_repos\\pyNAVIS\\src\\pyNAVIS')
-from pyNAVIS import *
+# If pyNAVIS was not installed from pip, clone the pyNAVIS repository
+# and use the following line:
+#from pyNAVIS import *
 
 # Otherwise, use this line:
-#import pyNAVIS
+import pyNAVIS
 
 #################################################################################
 # Configuration parameters
