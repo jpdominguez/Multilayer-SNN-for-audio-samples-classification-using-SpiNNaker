@@ -79,5 +79,5 @@ for tone_index in range(0, num_tones):
     os.mkdir(abs_path_training_tones_folder + training_tones_names[tone_index])
 
     # Save out the wav file
-    output_wav_name = training_tones_names[tone_index] + ".wav"
+    output_wav_name = training_tones_names[tone_index] + "_mono" + ".wav"
     mixer.write_wav(abs_path_training_tones_folder + training_tones_names[tone_index] + "\\" +  output_wav_name)
