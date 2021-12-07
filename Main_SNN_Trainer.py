@@ -134,6 +134,8 @@ else:
 #### pyNAVIS 
 pynavis_settings = pyNAVIS.MainSettings(num_channels=recordings_num_channels, mono_stereo=recordings_mono_stereo, on_off_both=recordings_on_off_both, address_size=recordings_address_size, ts_tick=recordings_ts_tick, bin_size=recordings_bin_size)
 
+if (is_zynq == True):
+    pynavis_localization_settings = pyNAVIS.LocalizationSettings(mso_start_channel=13, mso_end_channel=16, mso_num_neurons_channel=16)
 #################################################################################
 # Code
 #################################################################################
@@ -183,14 +185,14 @@ for folder_index in range (0, num_tones):
         # Otherwise, use loadCSV (for reading events files from SpiNNaker or others)
         if (is_nas2hidden_training == True):
             if(is_zynq == True):
-                sample_file_data = pyNAVIS.Loaders.loadZynqGrabberData(sample_filename_absolute_path, pynavis_settings)
+                sample_file_data, sample_file_localization_data = pyNAVIS.Loaders.loadZynqGrabberData(sample_filename_absolute_path, pynavis_settings, pynavis_localization_settings)
             else:
                 sample_file_data = pyNAVIS.Loaders.loadAEDAT(sample_filename_absolute_path, pynavis_settings)
         else:
             sample_file_data = pyNAVIS.Loaders.loadCSV(sample_filename_absolute_path)
         
         # Then, call "pyNavis.adapt" for adapting the events' timestamps
-        sample_file_data = pyNAVIS.Functions.adapt_SpikesFile(sample_file_data, pynavis_settings)
+        sample_file_data.timestamps = pyNAVIS.Functions.adapt_timestamps(sample_file_data.timestamps, pynavis_settings)
         # And check that everything is OK
         pyNAVIS.Functions.check_SpikesFile(sample_file_data, pynavis_settings)
 
